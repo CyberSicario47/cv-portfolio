@@ -1,5 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
+import WebDesign from "./SubComponents/WebDesign.jsx";
+import Development from "./SubComponents/Development.jsx";
+import Illustration from "./SubComponents/Illustration.jsx";
+import SocialMedia from "./SubComponents/SocialMedia.jsx";
+import ProductDesign from "./SubComponents/ProductDesign.jsx";
 
 const data = [
     "Web Design",
@@ -13,6 +18,7 @@ const Section = styled.div`
   scroll-snap-align: center;
   display: flex;
   justify-content: center;
+  position: relative;
 `
 const Container = styled.div`
   width: 1400px;
@@ -68,17 +74,44 @@ const ListItem = styled.li`
 `;
 
 function Experience(props) {
+
+    const [component, setComponent] = useState(<WebDesign/>)
+
+    const handleClick = (e) =>{
+        console.log(e.target.textContent)
+        switch (e.target.textContent) {
+            case "Web Design":
+                setComponent(<WebDesign/>)
+                break;
+            case "Development":
+                setComponent(<Development/>)
+                break;
+            case "Illustration":
+                setComponent(<Illustration/>)
+                break;
+            case "Product Design":
+                setComponent(<ProductDesign/>)
+                break;
+            case "Social Media":
+                setComponent(<SocialMedia/>)
+                break;
+            default:
+                setComponent(<WebDesign/>)
+        }
+    }
     return (
         <Section>
             <Container>
                 <Left>
                     <List>
                         {data.map((item, index) => (
-                            <ListItem key={index} text={item}>{item}</ListItem>
+                            <ListItem key={index} text={item} onClick={handleClick}>{item}</ListItem>
                         ))}
                     </List>
                 </Left>
-                <Right></Right>
+                <Right>
+                    {component}
+                </Right>
             </Container>
         </Section>
     );

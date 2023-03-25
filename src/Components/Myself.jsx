@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
+import Cube from "./SubComponents/Cube.jsx";
+import {Canvas} from "@react-three/fiber"
+import {OrbitControls} from "@react-three/drei"
 
 const Section = styled.div`
   height: 100vh;
@@ -55,13 +58,18 @@ const Button = styled.button`
   border-radius: 5px;
   cursor: pointer;
 `
-
+const cameraAdj = { fov: 25, position: [5, 5, 5] }
 function Myself(props) {
     return (
         <Section>
             <Container>
                 <Left>
-
+                    <Canvas camera={cameraAdj}>
+                        <OrbitControls enableZoom={false} autoRotate={true}/>
+                        <ambientLight intensity={1}/>
+                        <directionalLight position={[3,2,1]}/>
+                        <Cube/>
+                    </Canvas>
                 </Left>
                 <Right>
                     <Title>
